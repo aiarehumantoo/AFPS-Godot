@@ -1,0 +1,6 @@
+D:\Program Files\Godot projects\AFPS\.mono\temp\bin\Tools\AFPS.dll
+D:\Program Files\Godot projects\AFPS\.mono\temp\bin\Tools\AFPS.pdb
+D:\Program Files\Godot projects\AFPS\.mono\temp\obj\Tools\AFPS.csprojAssemblyReference.cache
+D:\Program Files\Godot projects\AFPS\.mono\temp\obj\Tools\AFPS.csproj.CoreCompileInputs.cache
+D:\Program Files\Godot projects\AFPS\.mono\temp\obj\Tools\AFPS.dll
+D:\Program Files\Godot projects\AFPS\.mono\temp\obj\Tools\AFPS.pdb
