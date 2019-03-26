@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+//using System.Collections.Generic;	// What additional namespaces are needed
+
 // Contains the command the user wishes upon the character
 struct Inputs
 {
@@ -56,6 +58,7 @@ public class Player : KinematicBody
         
     }
 	
+	// Mouse Controls
 	public override void _Input(InputEvent @event)
 	{
 		// Free Cursor. Temporary. Eventually move this to Esc/ShowMenu method
@@ -110,8 +113,10 @@ public class Player : KinematicBody
 	{
 		// Debug/Print camera rotations
 		//Console.WriteLine("Camera X rotation: " +rotX +" Camera Y rotation: " +rotY);
+		//Console.WriteLine(GlobalTransform.basis.GetEuler());	// Radians
+		Console.WriteLine(GetNode("Camera"));	//(Rotation)	// GetNode("path"). The NodePath can be either a relative path (from the current node) or an absolute path (in the scene tree) to a node
 		
-		Console.WriteLine("On floor: " +IsOnFloor());
+		//Console.WriteLine("On floor: " +IsOnFloor());
 	}
 
 
@@ -135,7 +140,8 @@ public class Player : KinematicBody
 		
 		// Move the controller
 		//MoveAndCollide(playerVelocity * delta);
-		MoveAndSlide(playerVelocity * delta, test);
+		//MoveAndSlide(playerVelocity * delta, test);
+		MoveAndSlide(playerVelocity, test);
 		
 		// Ground check		// Requires moveandslide(movement, floor normal) to work	(before it)
 		if(IsOnFloor())
@@ -146,6 +152,7 @@ public class Player : KinematicBody
 	
 	private void SetMovementDir()
     {
+		// Is there a way to do this with axis instead? Like in Unity.
         //_inputs.forwardMove = Input.GetAxisRaw("Vertical");
         //_inputs.rightMove = Input.GetAxisRaw("Horizontal");
 		
@@ -169,7 +176,15 @@ public class Player : KinematicBody
 			_inputs.rightMove = -1;
 		}
 		
-		// Is there a way to do this with axis instead? Like in Unity.
+		if (!Input.IsActionPressed("Forward") && !Input.IsActionPressed("Backward"))
+		{
+			_inputs.forwardMove = 0;
+		}
+		
+		if (!Input.IsActionPressed("Right") && !Input.IsActionPressed("Left"))
+		{
+			_inputs.rightMove = 0;
+		}
     }
 	
 	private void QueueJump()
@@ -198,7 +213,7 @@ public class Player : KinematicBody
 
         wishdir = new Vector3(_inputs.rightMove, 0, _inputs.forwardMove);		// Get inputs -> wishdir
         //wishdir = transform.TransformDirection(wishdir);						// Transform direction from local space to world space			//Godot conversions are to_global, to_local?
-		//wishdir = To_Global(wishdir);
+		//wishdir = wishdir.ToGlobal();
         //wishdir.Normalize();													// Normalize direction vector (keep direction, length of 1)
 		wishdir = wishdir.Normalized();
         moveDirectionNorm = wishdir;
